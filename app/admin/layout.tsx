@@ -28,8 +28,12 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-            <Header/>
-          {children}
+             <Header/>
+        
+            
+            {children}
+       
+           
         </ThemeProvider>
       </body>
     </html>
