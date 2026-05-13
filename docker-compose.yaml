@@ -1,4 +1,16 @@
 services:
+  spotify-db:
+    image: postgres:17.5
+    container_name: spotify-db
+    env_file:
+      - ./.env
+    networks:
+      - spotify-network
+    ports:
+      - "5454:5454"
+    volumes:
+      - "spotify-db-volume:/var/lib/postgresql/data"
+
   spotify-backoffice:
     container_name: spotify-backoffice
     build:
@@ -6,9 +18,19 @@ services:
       dockerfile: Dockerfile
       target: dev
     image: spotify-backoffice:latest
+    networks:
+      - spotify-network
     ports:
       - "3001:3000"
     volumes:
       - .:/app
       - /app/node_modules
       - /app/.next
+
+networks:
+  spotify-network:
+    name: spotify-network
+    driver: bridge
+
+volumes:
+  spotify-db-volume:

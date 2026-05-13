@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Status {
+  ative
+  inactive
+}
+
+model Band {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  status      Status   @default(ative)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  tracks      Track[]  @relation("BandTracks")
+
+  @@map("bands") //=> Nome da tabela do banco de dados  
+}
+
+model Track {
+  id                  String   @id @default(uuid()) @db.Uuid
+  title               String
+  slug                String   @unique
+  duration_in_seconds Int
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+  band_id             String   @db.Uuid
+  band                Band     @relation("BandTracks", fields: [band_id], references: [id], onDelete: Cascade)
+
+  @@index([band_id]) //=>Este index ajuda na performance em consultas por bandas :) 
+  @@map("tracks")
+}
