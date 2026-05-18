@@ -1022,6 +1022,7 @@ export namespace Prisma {
     status: $Enums.Status | null
     created_at: Date | null
     updated_at: Date | null
+    cover_url: string | null
   }
 
   export type BandMaxAggregateOutputType = {
@@ -1032,6 +1033,7 @@ export namespace Prisma {
     status: $Enums.Status | null
     created_at: Date | null
     updated_at: Date | null
+    cover_url: string | null
   }
 
   export type BandCountAggregateOutputType = {
@@ -1042,6 +1044,7 @@ export namespace Prisma {
     status: number
     created_at: number
     updated_at: number
+    cover_url: number
     _all: number
   }
 
@@ -1054,6 +1057,7 @@ export namespace Prisma {
     status?: true
     created_at?: true
     updated_at?: true
+    cover_url?: true
   }
 
   export type BandMaxAggregateInputType = {
@@ -1064,6 +1068,7 @@ export namespace Prisma {
     status?: true
     created_at?: true
     updated_at?: true
+    cover_url?: true
   }
 
   export type BandCountAggregateInputType = {
@@ -1074,6 +1079,7 @@ export namespace Prisma {
     status?: true
     created_at?: true
     updated_at?: true
+    cover_url?: true
     _all?: true
   }
 
@@ -1157,6 +1163,7 @@ export namespace Prisma {
     status: $Enums.Status
     created_at: Date
     updated_at: Date
+    cover_url: string | null
     _count: BandCountAggregateOutputType | null
     _min: BandMinAggregateOutputType | null
     _max: BandMaxAggregateOutputType | null
@@ -1184,6 +1191,7 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
+    cover_url?: boolean
     tracks?: boolean | Band$tracksArgs<ExtArgs>
     _count?: boolean | BandCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["band"]>
@@ -1196,6 +1204,7 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
+    cover_url?: boolean
   }, ExtArgs["result"]["band"]>
 
   export type BandSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1206,6 +1215,7 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
+    cover_url?: boolean
   }, ExtArgs["result"]["band"]>
 
   export type BandSelectScalar = {
@@ -1216,9 +1226,10 @@ export namespace Prisma {
     status?: boolean
     created_at?: boolean
     updated_at?: boolean
+    cover_url?: boolean
   }
 
-  export type BandOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "status" | "created_at" | "updated_at", ExtArgs["result"]["band"]>
+  export type BandOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "status" | "created_at" | "updated_at" | "cover_url", ExtArgs["result"]["band"]>
   export type BandInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tracks?: boolean | Band$tracksArgs<ExtArgs>
     _count?: boolean | BandCountOutputTypeDefaultArgs<ExtArgs>
@@ -1239,6 +1250,7 @@ export namespace Prisma {
       status: $Enums.Status
       created_at: Date
       updated_at: Date
+      cover_url: string | null
     }, ExtArgs["result"]["band"]>
     composites: {}
   }
@@ -1670,6 +1682,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Band", 'Status'>
     readonly created_at: FieldRef<"Band", 'DateTime'>
     readonly updated_at: FieldRef<"Band", 'DateTime'>
+    readonly cover_url: FieldRef<"Band", 'String'>
   }
     
 
@@ -3249,7 +3262,8 @@ export namespace Prisma {
     description: 'description',
     status: 'status',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    cover_url: 'cover_url'
   };
 
   export type BandScalarFieldEnum = (typeof BandScalarFieldEnum)[keyof typeof BandScalarFieldEnum]
@@ -3381,6 +3395,7 @@ export namespace Prisma {
     status?: EnumStatusFilter<"Band"> | $Enums.Status
     created_at?: DateTimeFilter<"Band"> | Date | string
     updated_at?: DateTimeFilter<"Band"> | Date | string
+    cover_url?: StringNullableFilter<"Band"> | string | null
     tracks?: TrackListRelationFilter
   }
 
@@ -3392,6 +3407,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    cover_url?: SortOrderInput | SortOrder
     tracks?: TrackOrderByRelationAggregateInput
   }
 
@@ -3406,6 +3422,7 @@ export namespace Prisma {
     status?: EnumStatusFilter<"Band"> | $Enums.Status
     created_at?: DateTimeFilter<"Band"> | Date | string
     updated_at?: DateTimeFilter<"Band"> | Date | string
+    cover_url?: StringNullableFilter<"Band"> | string | null
     tracks?: TrackListRelationFilter
   }, "id" | "name" | "slug">
 
@@ -3417,6 +3434,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    cover_url?: SortOrderInput | SortOrder
     _count?: BandCountOrderByAggregateInput
     _max?: BandMaxOrderByAggregateInput
     _min?: BandMinOrderByAggregateInput
@@ -3433,6 +3451,7 @@ export namespace Prisma {
     status?: EnumStatusWithAggregatesFilter<"Band"> | $Enums.Status
     created_at?: DateTimeWithAggregatesFilter<"Band"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Band"> | Date | string
+    cover_url?: StringNullableWithAggregatesFilter<"Band"> | string | null
   }
 
   export type TrackWhereInput = {
@@ -3510,6 +3529,7 @@ export namespace Prisma {
     status?: $Enums.Status
     created_at?: Date | string
     updated_at?: Date | string
+    cover_url?: string | null
     tracks?: TrackCreateNestedManyWithoutBandInput
   }
 
@@ -3521,6 +3541,7 @@ export namespace Prisma {
     status?: $Enums.Status
     created_at?: Date | string
     updated_at?: Date | string
+    cover_url?: string | null
     tracks?: TrackUncheckedCreateNestedManyWithoutBandInput
   }
 
@@ -3532,6 +3553,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cover_url?: NullableStringFieldUpdateOperationsInput | string | null
     tracks?: TrackUpdateManyWithoutBandNestedInput
   }
 
@@ -3543,6 +3565,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cover_url?: NullableStringFieldUpdateOperationsInput | string | null
     tracks?: TrackUncheckedUpdateManyWithoutBandNestedInput
   }
 
@@ -3554,6 +3577,7 @@ export namespace Prisma {
     status?: $Enums.Status
     created_at?: Date | string
     updated_at?: Date | string
+    cover_url?: string | null
   }
 
   export type BandUpdateManyMutationInput = {
@@ -3564,6 +3588,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cover_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BandUncheckedUpdateManyInput = {
@@ -3574,6 +3599,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cover_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TrackCreateInput = {
@@ -3728,6 +3754,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    cover_url?: SortOrder
   }
 
   export type BandMaxOrderByAggregateInput = {
@@ -3738,6 +3765,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    cover_url?: SortOrder
   }
 
   export type BandMinOrderByAggregateInput = {
@@ -3748,6 +3776,7 @@ export namespace Prisma {
     status?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    cover_url?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -4218,6 +4247,7 @@ export namespace Prisma {
     status?: $Enums.Status
     created_at?: Date | string
     updated_at?: Date | string
+    cover_url?: string | null
   }
 
   export type BandUncheckedCreateWithoutTracksInput = {
@@ -4228,6 +4258,7 @@ export namespace Prisma {
     status?: $Enums.Status
     created_at?: Date | string
     updated_at?: Date | string
+    cover_url?: string | null
   }
 
   export type BandCreateOrConnectWithoutTracksInput = {
@@ -4254,6 +4285,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cover_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BandUncheckedUpdateWithoutTracksInput = {
@@ -4264,6 +4296,7 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cover_url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TrackCreateManyBandInput = {

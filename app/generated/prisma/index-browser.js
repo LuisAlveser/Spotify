@@ -127,7 +127,8 @@ exports.Prisma.BandScalarFieldEnum = {
   description: 'description',
   status: 'status',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  cover_url: 'cover_url'
 };
 
 exports.Prisma.TrackScalarFieldEnum = {
