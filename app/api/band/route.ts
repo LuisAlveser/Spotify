@@ -17,7 +17,7 @@ export async function GET() {
         }
          return Response.json(bandas)
     } catch (error) {
-        
+         return Response.json({msg:"Erro no servidor"},{status:500})
     }
     
 }
