@@ -13,7 +13,7 @@ datasource db {
 }
 
 enum Status {
-  ative
+  active
   inactive
 }
 
@@ -22,7 +22,7 @@ model Band {
   name        String   @unique
   slug        String   @unique
   description String?
-  status      Status   @default(ative)
+  status      Status   @default(active)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
   cover_url   String?    

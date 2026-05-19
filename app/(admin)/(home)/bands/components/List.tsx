@@ -1,7 +1,10 @@
 "use client"
 import { Button } from "@/app/components/Button";
+import Loading from "@/app/components/Loading";
 import { Band } from "@/app/generated/prisma";
 import { useEffect, useState } from "react";
+import { Pagination } from "./Pagination";
+
 
 export function TableRow({ band }: { band: Band }) {
   return (
@@ -30,32 +33,60 @@ export function TableRow({ band }: { band: Band }) {
     </tr>
   );
 }
+interface BandList{
+  pagination:{
+   currentPage:number,
+   totalItems:number,
+   totalPages:number
+  }
+  bands:Band[] //=> Model do prisma 
+}
+export  function List() {
+ const [data,setData]=useState<BandList|null>(null)
+ const [loading,setloading]=useState<boolean>(true)
+ const [currentPage,setCurrentPage]=useState<number>(1)
 
-export  function ManageCSR() {
- const [bands,setbands]=useState<Band[]|null>(null)
+ const handlePrev=()=> {
+  if(currentPage>1){
+    setCurrentPage((prev)=>prev-1)
+  }
+
+ }
+  const handleNext=()=> {
+    if(data?.pagination.totalPages){
+       if(currentPage<data?.pagination.totalPages){
+    setCurrentPage((prev)=>prev+1)
+    console.log(currentPage)
+  }
+}
+
+ }
+
+
  useEffect(()=>{
-   const fetchbands=async()=>{
+   const fetchbands=async(page:number)=>{
     try {
-       const response = await fetch("http://localhost:3001/api/band");
-       const bands: Band[] = await response.json();
+      setData(null)
+      setloading(true)
+       const response = await fetch(`http://localhost:3001/api/band?page=${page}&take=4`);
      
-       setbands(bands)
-       
+       const bandList: BandList = await response.json();
+     
+       setData(bandList)
+       setloading(false)
+      
     } catch (error) {
-       Response.json({mgm:"Erro no servidor",status:500})
+      console.error("Erro ao carregar dados do servidor:", error);
     }
       
    }
-   fetchbands()
- },[])
+   fetchbands(currentPage)
+ },[currentPage])//=>Escuta as alterações feitas nessa variável
  
-
+ 
   return (
-    <section className="overflow-x-auto p-4">
-      <header className="flex justify-end mb-4">
-       
-        <Button>Adicionar</Button>
-      </header>
+   
+     <>
       <table className="min-w-full border border-gray-200 rounded-sm">
         <thead className="bg-gray-800 text-gray-50 uppercase text-left text-sm">
           <tr>
@@ -66,20 +97,26 @@ export  function ManageCSR() {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {Array.isArray(bands) && bands.length > 0 ? (
-            bands.map((item) => (
+          {Array.isArray(data?.bands) && data.bands.length > 0 ? (
+            data.bands.map((item) => (
               <TableRow key={item.id} band={item} />
             ))
           ) : (
             <tr>
              
-              <td colSpan={3} className="text-center text-gray-500 py-4">
-                Nenhum registro encontrado
+              <td colSpan={4} className="text-center text-gray-500 py-4">
+               {loading?<Loading/>:"Nenhum registro encontrado"} 
               </td>
             </tr>
           )}
         </tbody>
       </table>
-    </section>
+      {data?.pagination.totalPages&&(
+            <Pagination
+             totalPages={data.pagination.totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      )}
+   
+    </>
+    
   );
 }

@@ -29,7 +29,7 @@ export type Track = $Result.DefaultSelection<Prisma.$TrackPayload>
  */
 export namespace $Enums {
   export const Status: {
-  ative: 'ative',
+  active: 'active',
   inactive: 'inactive'
 };
 

@@ -4,7 +4,7 @@ import * as z from "zod";
     name: z.string(),
     slug:z.string().min(1),
     description:z.string().optional(),
-    status:z.enum(["ative","inactive"]),
+    status:z.enum(["active","inactive"]),
     cover:z.instanceof(File).refine((file)=> file.size>0,{message:"Arquivo  é obrigatório"})
     
 

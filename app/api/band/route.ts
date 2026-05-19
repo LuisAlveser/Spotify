@@ -6,16 +6,32 @@ import path from "node:path"
 import crypto from "node:crypto"
 
 import { PrismaClientUnknownRequestError } from "@/app/generated/prisma/runtime/client"
+import { NextRequest } from "next/server"
 
 
 
-export async function GET() {
+
+export async function GET(request:NextRequest) {
     try {
-        const bandas = await prisma.band.findMany()
+     const url =new URL(request.url)
+     const {searchParams}=url
+  
+       
+        const currentPage:number= parseInt(searchParams.get("page")||"1")
+        const take :number= parseInt(searchParams.get("take")||"10")
+        const skip:number=(currentPage-1)*take
+        
+        const totalItems =await prisma.band.count()
+        const totalPages=Math.ceil(totalItems/take)
+
+        const bandas = await prisma.band.findMany({
+            skip:skip,take:take,orderBy:{created_at:"desc"}
+        })
+      
         if(!bandas){
              return Response.json({msg:"API rest GET"},{status:404})
         }
-         return Response.json(bandas)
+         return Response.json({pagination:{currentPage,totalItems,totalPages}, bands:bandas})
     } catch (error) {
          return Response.json({msg:"Erro no servidor"},{status:500})
     }
