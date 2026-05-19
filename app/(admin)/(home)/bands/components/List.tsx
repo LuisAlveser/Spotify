@@ -68,7 +68,7 @@ export  function List() {
     try {
       setData(null)
       setloading(true)
-       const response = await fetch(`http://localhost:3001/api/band?page=${page}&take=4`);
+       const response = await fetch(`http://localhost:3001/api/band?page=${page}&take=10`);
      
        const bandList: BandList = await response.json();
      

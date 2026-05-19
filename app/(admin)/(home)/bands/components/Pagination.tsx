@@ -7,12 +7,14 @@ interface Props{
 }
 
 export function Pagination({totalPages,currentPage,setCurrentPage}:Props){
+    const surroudingPages=2
+    let startPage=Math.max(currentPage-surroudingPages,1)//=>Pega o maior valor entre duas possibilídades
+    let endPage=Math.min(currentPage+surroudingPages,totalPages)
     
     const handlePrev=()=> {
   if(currentPage>1){
     setCurrentPage((prev)=>prev-1)
   }
-
  }
   const handleNext=()=> {
     if(totalPages){
@@ -26,12 +28,13 @@ export function Pagination({totalPages,currentPage,setCurrentPage}:Props){
 
     return(
        <>
+      
         <div className="flex flex-row gap-3 justify-center items-center mt-3">
 
         <button className=" py-1 px-3 hover:cursor-pointer" onClick={handlePrev} disabled={currentPage===1}
          >voltar
          </button> 
-       {Array.from({ length: totalPages ?? 0 }, (_, i) => i + 1).map((pageNumber) => {
+       {Array.from({ length: endPage-startPage+1 }, (_, i) => i + startPage).map((pageNumber) => {
          const isActive=pageNumber===currentPage
  return (
     <button 
