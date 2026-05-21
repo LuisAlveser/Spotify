@@ -41,11 +41,11 @@ interface BandList{
   }
   bands:Band[] //=> Model do prisma 
 }
-export  function List() {
+export   function List() {
  const [data,setData]=useState<BandList|null>(null)
  const [loading,setloading]=useState<boolean>(true)
  const [currentPage,setCurrentPage]=useState<number>(1)
-
+ 
  const handlePrev=()=> {
   if(currentPage>1){
     setCurrentPage((prev)=>prev-1)
@@ -56,7 +56,7 @@ export  function List() {
     if(data?.pagination.totalPages){
        if(currentPage<data?.pagination.totalPages){
     setCurrentPage((prev)=>prev+1)
-    console.log(currentPage)
+   
   }
 }
 
@@ -66,13 +66,14 @@ export  function List() {
  useEffect(()=>{
    const fetchbands=async(page:number)=>{
     try {
-      setData(null)
+     
       setloading(true)
        const response = await fetch(`http://localhost:3001/api/band?page=${page}&take=10`);
      
        const bandList: BandList = await response.json();
-     
+       console.log(bandList.bands)
        setData(bandList)
+       
        setloading(false)
       
     } catch (error) {
@@ -87,6 +88,7 @@ export  function List() {
   return (
    
      <>
+         
       <table className="min-w-full border border-gray-200 rounded-sm">
         <thead className="bg-gray-800 text-gray-50 uppercase text-left text-sm">
           <tr>
@@ -105,7 +107,7 @@ export  function List() {
             <tr>
              
               <td colSpan={4} className="text-center text-gray-500 py-4">
-               {loading?<Loading/>:"Nenhum registro encontrado"} 
+               {loading?<Loading width={40} heigth={40}/>:"Nenhum registro encontrado"} 
               </td>
             </tr>
           )}

@@ -1,13 +1,15 @@
 import * as z from "zod"; 
 
- export const BandSchema =z.object({
-    name: z.string(),
-    slug:z.string().min(1),
-    description:z.string().optional(),
-    status:z.enum(["active","inactive"]),
-    cover:z.instanceof(File).refine((file)=> file.size>0,{message:"Arquivo  é obrigatório"})
-    
+const MAX_SIZE_MB = 5;
+const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 
-})
-export  const BandSchemaArray=z.array(BandSchema).min(1)
+export const BandSchema = z.object({
+  name: z.string().min(1, "O nome precisa ter pelo menos 1 caracter"),
+  slug: z.string().min(1, "O slug precisa ter pelo menos 1 caracter"),
+  description: z.string().optional(),
+  status: z.enum(["active", "inactive"]),
+  cover: z.any() 
+   
+});
 
+export const BandSchemaArray = z.array(BandSchema).min(1);

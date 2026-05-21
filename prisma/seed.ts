@@ -1,17 +1,14 @@
 import { Band, Status } from "@/app/generated/prisma";
-import  {prisma} from "../app/lib/prisma"
-
-
-
-
+import { prisma } from "../app/lib/prisma";
 
 async function main() {
   const bands = [
-    
+    // --- NACIONAIS ---
     {
       name: "Roupa Nova",
       slug: "roupa-nova",
-      status: "active",
+      status: Status.active,
+      description: "Ícone do pop rock e MPB, famosa por suas trilhas sonoras de novelas e harmonia vocal impecável.",
       tracks: {
         create: [
           { title: "Dona", slug: "dona", duration_in_seconds: 244 },
@@ -22,7 +19,8 @@ async function main() {
     {
       name: "Legião Urbana",
       slug: "legiao-urbana",
-      status: "active",
+      status: Status.active,
+      description: "Uma das maiores bandas do rock brasíliaco, liderada pelo eterno Renato Russo, marcou gerações com letras poéticas e sociais.",
       tracks: {
         create: [
           { title: "Eduardo e Mônica", slug: "eduardo-e-monica", duration_in_seconds: 272 },
@@ -33,7 +31,8 @@ async function main() {
     {
       name: "Os Paralamas do Sucesso",
       slug: "os-paralamas-do-sucesso",
-      status: "active",
+      status: Status.active,
+      description: "Pioneiros do rock nacional dos anos 80, misturando perfeitamente o rock com ritmos caribenhos, reggae e ska.",
       tracks: {
         create: [
           { title: "Lanterna dos Afogados", slug: "lanterna-dos-afogados", duration_in_seconds: 208 },
@@ -44,7 +43,8 @@ async function main() {
     {
       name: "Skank",
       slug: "skank",
-      status: "active",
+      status: Status.active,
+      description: "Banda mineira que conquistou o Brasil misturando pop rock com dancehall, reggae e refrões extremamente marcantes.",
       tracks: {
         create: [
           { title: "Vou Deixar", slug: "vou-deixar", duration_in_seconds: 239 },
@@ -55,7 +55,8 @@ async function main() {
     {
       name: "Jota Quest",
       slug: "jota-quest",
-      status: "active",
+      status: Status.active,
+      description: "Referência no pop rock e pop-funk brasileiro, conhecida pela energia contagiante de seus shows e canções otimistas.",
       tracks: {
         create: [
           { title: "Dias Melhores", slug: "dias-melhores", duration_in_seconds: 283 },
@@ -66,7 +67,8 @@ async function main() {
     {
       name: "Titãs",
       slug: "titas",
-      status: "active",
+      status: Status.active,
+      description: "Uma das bandas mais versáteis do rock brasileiro, transitando entre o punk, a New Wave, o pop e o rock acústico.",
       tracks: {
         create: [
           { title: "Epitáfio", slug: "epitafio", duration_in_seconds: 177 },
@@ -77,7 +79,8 @@ async function main() {
     {
       name: "Charlie Brown Jr.",
       slug: "charlie-brown-jr",
-      status: "active",
+      status: Status.active,
+      description: "Mistura única de rock alternativo, skate punk, reggae e rap, eternizada pela voz e atitude de Chorão.",
       tracks: {
         create: [
           { title: "Só os Loucos Sabem", slug: "so-os-loucos-sabem", duration_in_seconds: 210 },
@@ -88,7 +91,8 @@ async function main() {
     {
       name: "O Rappa",
       slug: "o-rappa",
-      status: "active",
+      status: Status.active,
+      description: "Banda carioca conhecida por suas letras de forte cunho social e sua mistura de rock, reggae, rap e dub.",
       tracks: {
         create: [
           { title: "Anjos (Pra Quem Tem Fé)", slug: "anjos-pra-quem-tem-fe", duration_in_seconds: 326 },
@@ -99,7 +103,8 @@ async function main() {
     {
       name: "CPM 22",
       slug: "cpm-22",
-      status: "active",
+      status: Status.active,
+      description: "Um dos maiores expoentes do hardcore melódico e do punk rock nacional nos anos 2000.",
       tracks: {
         create: [
           { title: "Um Minuto Para o Fim do Mundo", slug: "um-minuto-para-o-fim-do-mundo", duration_in_seconds: 198 },
@@ -110,7 +115,8 @@ async function main() {
     {
       name: "Pitty",
       slug: "pitty",
-      status: "active",
+      status: Status.active,
+      description: "Liderada pela cantora baiana Pitty, tornou-se a cara do rock nacional dos anos 2000 com letras viscerais e atitude empoderada.",
       tracks: {
         create: [
           { title: "Equalize", slug: "equalize", duration_in_seconds: 232 },
@@ -121,7 +127,8 @@ async function main() {
     {
       name: "Barão Vermelho",
       slug: "barao-vermelho",
-      status: "active",
+      status: Status.active,
+      description: "Pilar fundamental do BRock, revelou Cazuza e Frejat, marcando a história com seu blues-rock contestador.",
       tracks: {
         create: [
           { title: "Pro Dia Nascer Feliz", slug: "pro-dia-nascer-feliz", duration_in_seconds: 266 },
@@ -132,7 +139,8 @@ async function main() {
     {
       name: "Capital Inicial",
       slug: "capital-inicial",
-      status: "active",
+      status: Status.active,
+      description: "Surgida do movimento pós-punk de Brasília, a banda liderada por Dinho Ouro Preto se consolidou como gigante do pop rock nacional.",
       tracks: {
         create: [
           { title: "Primeiros Erros", slug: "primeiros-erros", duration_in_seconds: 334 },
@@ -143,7 +151,8 @@ async function main() {
     {
       name: "Los Hermanos",
       slug: "los-hermanos",
-      status: "active",
+      status: Status.active,
+      description: "Banda que começou no hardcore/ska e evoluiu para um rock alternativo melancólico e MPB, arrastando multidões de fãs cultos.",
       tracks: {
         create: [
           { title: "Anna Julia", slug: "anna-julia", duration_in_seconds: 212 },
@@ -154,7 +163,8 @@ async function main() {
     {
       name: "Engenheiros do Hawaii",
       slug: "engenheiros-do-hawaii",
-      status: "active",
+      status: Status.active,
+      description: "Ícone do rock gaúcho, famosa pelas letras repletas de ironia, trocadilhos e críticas filosóficas criadas por Humberto Gessinger.",
       tracks: {
         create: [
           { title: "Infinita Highway", slug: "infinita-highway", duration_in_seconds: 371 },
@@ -165,7 +175,8 @@ async function main() {
     {
       name: "Raimundos",
       slug: "raimundos",
-      status: "active",
+      status: Status.active,
+      description: "Revolucionou os anos 90 misturando o peso do hardcore punk com a malícia e a sonoridade do forró e ritmos nordestinos.",
       tracks: {
         create: [
           { title: "Mulher de Fases", slug: "mulher-de-fases", duration_in_seconds: 212 },
@@ -176,7 +187,8 @@ async function main() {
     {
       name: "Mamonas Assassinas",
       slug: "mamonas-assassinas",
-      status: "active",
+      status: Status.active,
+      description: "Fenômeno meteórico dos anos 90 que uniu rock pesado, paródias e humor escrachado, conquistando o coração de todo o país.",
       tracks: {
         create: [
           { title: "Pelados em Santos", slug: "pelados-em-santos", duration_in_seconds: 202 },
@@ -187,7 +199,8 @@ async function main() {
     {
       name: "Rouge",
       slug: "rouge",
-      status: "active",
+      status: Status.active,
+      description: "O maior grupo pop feminino do Brasil, formado em 2002, que virou febre nacional com suas coreografias e hits chiclete.",
       tracks: {
         create: [
           { title: "Ragatanga", slug: "ragatanga", duration_in_seconds: 202 },
@@ -198,7 +211,8 @@ async function main() {
     {
       name: "NX Zero",
       slug: "nx-zero",
-      status: "active",
+      status: Status.active,
+      description: "Banda pioneira do movimento Emocore no Brasil, liderando as paradas de sucesso nos anos 2000 com letras confessionais.",
       tracks: {
         create: [
           { title: "Cedo Ou Tarde", slug: "cedo-ou-tarde", duration_in_seconds: 233 },
@@ -209,7 +223,8 @@ async function main() {
     {
       name: "Fresno",
       slug: "fresno",
-      status: "active",
+      status: Status.active,
+      description: "Referência do rock alternativo e emocional brasileiro, conhecida por sua evolução sonora constante e composições grandiosas.",
       tracks: {
         create: [
           { title: "Desde Quando Você Se Foi", slug: "desde-quando-voce-se-foi", duration_in_seconds: 214 },
@@ -220,7 +235,8 @@ async function main() {
     {
       name: "Natiruts",
       slug: "natiruts",
-      status: "active",
+      status: Status.active,
+      description: "Uma das bandas mais importantes do reggae nacional, levando vibrações positivas e a cultura de Brasília para o mundo.",
       tracks: {
         create: [
           { title: "Quero Ser Feliz Também", slug: "quero-ser-feliz-tambem", duration_in_seconds: 230 },
@@ -231,7 +247,8 @@ async function main() {
     {
       name: "Melim",
       slug: "melim",
-      status: "active",
+      status: Status.active,
+      description: "Trio de irmãos fluminenses que conquistou o país com seu estilo 'good vibes', misturando pop, reggae e MPB.",
       tracks: {
         create: [
           { title: "Meu Abrigo", slug: "meu-abrigo", duration_in_seconds: 231 },
@@ -242,7 +259,8 @@ async function main() {
     {
       name: "Sepultura",
       slug: "sepultura",
-      status: "active",
+      status: Status.active,
+      description: "A banda brasileira de Heavy Metal de maior repercussão mundial, respeitada globalmente por sua agressividade e inovação.",
       tracks: {
         create: [
           { title: "Roots Bloody Roots", slug: "roots-bloody-roots", duration_in_seconds: 212 },
@@ -253,7 +271,8 @@ async function main() {
     {
       name: "Angra",
       slug: "angra",
-      status: "active",
+      status: Status.active,
+      description: "Ícone mundial do Power Metal e Metal Progressivo, famosa por unir o peso do metal à música clássica e ritmos brasileiros.",
       tracks: {
         create: [
           { title: "Carry On", slug: "carry-on", duration_in_seconds: 303 },
@@ -264,7 +283,8 @@ async function main() {
     {
       name: "BaianaSystem",
       slug: "baianasystem",
-      status: "active",
+      status: Status.active,
+      description: "Projeto musical revolucionário que une o som da guitarra baiana com soundsystem, dub, reggae e ritmos afro-latinos.",
       tracks: {
         create: [
           { title: "Sulamericano", slug: "sulamericano", duration_in_seconds: 264 },
@@ -275,7 +295,8 @@ async function main() {
     {
       name: "Liniker e os Caramelows",
       slug: "liniker-e-os-caramelows",
-      status: "active",
+      status: Status.active,
+      description: "Grupo que uniu a potência e a representatividade da MPB contemporânea com o molho do Soul e da Black Music.",
       tracks: {
         create: [
           { title: "Zero", slug: "zero", duration_in_seconds: 335 },
@@ -288,7 +309,8 @@ async function main() {
     {
       name: "Queen",
       slug: "queen",
-      status: "active",
+      status: Status.active,
+      description: "Uma das bandas mais lendárias da história do rock mundial, famosa pela genialidade teatral e voz inigualável de Freddie Mercury.",
       tracks: {
         create: [
           { title: "Bohemian Rhapsody", slug: "bohemian-rhapsody", duration_in_seconds: 355 },
@@ -299,7 +321,8 @@ async function main() {
     {
       name: "The Beatles",
       slug: "the-beatles",
-      status: "active",
+      status: Status.active,
+      description: "O quarteto de Liverpool que revolucionou a música pop, a cultura jovem e os métodos de gravação nos anos 1960.",
       tracks: {
         create: [
           { title: "Hey Jude", slug: "hey-jude", duration_in_seconds: 431 },
@@ -310,7 +333,8 @@ async function main() {
     {
       name: "Coldplay",
       slug: "coldplay",
-      status: "active",
+      status: Status.active,
+      description: "Banda britânica gigante do pop rock alternativo, aclamada por seus shows monumentais em estádios e hinos melódicos.",
       tracks: {
         create: [
           { title: "Yellow", slug: "yellow", duration_in_seconds: 269 },
@@ -321,7 +345,8 @@ async function main() {
     {
       name: "Linkin Park",
       slug: "linkin-park",
-      status: "active",
+      status: Status.active,
+      description: "Pioneiros e maiores representantes do Nu Metal, unindo perfeitamente guitarras pesadas, rap, eletrônico e vocais viscerais.",
       tracks: {
         create: [
           { title: "In the End", slug: "in-the-end", duration_in_seconds: 216 },
@@ -332,7 +357,8 @@ async function main() {
     {
       name: "U2",
       slug: "u2",
-      status: "active",
+      status: Status.active,
+      description: "Grupo irlandês histórico liderado por Bono Vox, marcante pelas guitarras com delay de The Edge e forte ativismo político e social.",
       tracks: {
         create: [
           { title: "With or Without You", slug: "with-or-without-you", duration_in_seconds: 296 },
@@ -343,7 +369,8 @@ async function main() {
     {
       name: "Pink Floyd",
       slug: "pink-floyd",
-      status: "active",
+      status: Status.active,
+      description: "Gigantes do rock progressivo e psicodélico, famosos por seus álbuns conceituais, letras filosóficas e shows com visuais surreais.",
       tracks: {
         create: [
           { title: "Another Brick in the Wall", slug: "another-brick-in-the-wall", duration_in_seconds: 239 },
@@ -354,7 +381,8 @@ async function main() {
     {
       name: "AC/DC",
       slug: "ac-dc",
-      status: "active",
+      status: Status.active,
+      description: "Lendas do Hard Rock australiano, conhecidos mundialmente pelos riffs inconfundíveis de Angus Young e sua energia eletrizante.",
       tracks: {
         create: [
           { title: "Back In Black", slug: "back-in-black", duration_in_seconds: 255 },
@@ -365,7 +393,8 @@ async function main() {
     {
       name: "Metallica",
       slug: "metallica",
-      status: "active",
+      status: Status.active,
+      description: "Uma das bandas que compõem o 'Big Four' do Thrash Metal, moldando o metal moderno e arrastando legiões de fãs ao redor do globo.",
       tracks: {
         create: [
           { title: "Enter Sandman", slug: "enter-sandman", duration_in_seconds: 331 },
@@ -376,7 +405,8 @@ async function main() {
     {
       name: "Nirvana",
       slug: "nirvana",
-      status: "active",
+      status: Status.active,
+      description: "Liderada por Kurt Cobain, a banda de Seattle definiu o movimento Grunge nos anos 90 e mudou o rumo do rock alternativo para sempre.",
       tracks: {
         create: [
           { title: "Smells Like Teen Spirit", slug: "smells-like-teen-spirit", duration_in_seconds: 301 },
@@ -387,7 +417,8 @@ async function main() {
     {
       name: "Red Hot Chili Peppers",
       slug: "red-hot-chili-peppers",
-      status: "active",
+      status: Status.active,
+      description: "Banda californiana icônica que fundiu Funk com Rock Alternativo, sustentada pelo baixo groovado de Flea e hits atemporais.",
       tracks: {
         create: [
           { title: "Californication", slug: "californication", duration_in_seconds: 329 },
@@ -398,7 +429,8 @@ async function main() {
     {
       name: "Foo Fighters",
       slug: "foo-fighters",
-      status: "active",
+      status: Status.active,
+      description: "Formada por Dave Grohl após o fim do Nirvana, consolidou-se como uma das maiores forças do Post-Grunge e Rock de arena do mundo.",
       tracks: {
         create: [
           { title: "Everlong", slug: "everlong", duration_in_seconds: 250 },
@@ -409,7 +441,8 @@ async function main() {
     {
       name: "Green Day",
       slug: "green-day",
-      status: "active",
+      status: Status.active,
+      description: "Trio californiano que reviveu o interesse do mainstream pelo Punk Rock nos anos 90 e criou óperas-rock icônicas nos anos 2000.",
       tracks: {
         create: [
           { title: "Basket Case", slug: "basket-case", duration_in_seconds: 181 },
@@ -420,7 +453,8 @@ async function main() {
     {
       name: "Arctic Monkeys",
       slug: "arctic-monkeys",
-      status: "active",
+      status: Status.active,
+      description: "Expoente do Indie Rock britânico, estourou na internet nos anos 2000 com riffs afiados e composições maduras de Alex Turner.",
       tracks: {
         create: [
           { title: "Do I Wanna Know?", slug: "do-i-wanna-know", duration_in_seconds: 272 },
@@ -431,7 +465,8 @@ async function main() {
     {
       name: "Maroon 5",
       slug: "maroon-5",
-      status: "active",
+      status: Status.active,
+      description: "Banda que começou focada no Pop Rock/Neo-Soul e se transformou em uma das maiores máquinas de hits Pop do planeta.",
       tracks: {
         create: [
           { title: "Sugar", slug: "sugar", duration_in_seconds: 235 },
@@ -442,7 +477,8 @@ async function main() {
     {
       name: "Imagine Dragons",
       slug: "imagine-dragons",
-      status: "active",
+      status: Status.active,
+      description: "Banda de Las Vegas famosa por fundir Rock com Pop e Eletrônico, criando faixas épicas e repletas de percussão pesada.",
       tracks: {
         create: [
           { title: "Radioactive", slug: "radioactive", duration_in_seconds: 186 },
@@ -453,7 +489,8 @@ async function main() {
     {
       name: "Guns N' Roses",
       slug: "guns-n-roses",
-      status: "active",
+      status: Status.active,
+      description: "Símbolo do Hard Rock do final dos anos 80, marcou o mundo com a voz rasgada de Axl Rose e os solos lendários de Slash.",
       tracks: {
         create: [
           { title: "Sweet Child O' Mine", slug: "sweet-child-o-mine", duration_in_seconds: 356 },
@@ -464,7 +501,8 @@ async function main() {
     {
       name: "Led Zeppelin",
       slug: "led-zeppelin",
-      status: "active",
+      status: Status.active,
+      description: "Considerada uma das bandas criadoras do Heavy Metal e Hard Rock, unindo Blues pesado, misticismo e virtuosismo musical.",
       tracks: {
         create: [
           { title: "Stairway to Heaven", slug: "stairway-to-heaven", duration_in_seconds: 482 },
@@ -475,7 +513,8 @@ async function main() {
     {
       name: "The Rolling Stones",
       slug: "the-rolling-stones",
-      status: "active",
+      status: Status.active,
+      description: "Sinônimo da longevidade no Rock 'n' Roll, a banda britânica liderada por Mick Jagger e Keith Richards moldou a atitude do gênero.",
       tracks: {
         create: [
           { title: "(I Can't Get No) Satisfaction", slug: "satisfaction", duration_in_seconds: 223 },
@@ -486,7 +525,8 @@ async function main() {
     {
       name: "Radiohead",
       slug: "radiohead",
-      status: "active",
+      status: Status.active,
+      description: "Banda britânica aclamada pela crítica por sua constante experimentação artística, misturando Art Rock com música eletrônica e alternativa.",
       tracks: {
         create: [
           { title: "Creep", slug: "creep", duration_in_seconds: 236 },
@@ -497,7 +537,8 @@ async function main() {
     {
       name: "The Killers",
       slug: "the-killers",
-      status: "active",
+      status: Status.active,
+      description: "Direto de Las Vegas, o grupo revitalizou o Indie Rock e o Synth-pop nos anos 2000 com batidas dançantes e refrões grandiosos.",
       tracks: {
         create: [
           { title: "Mr. Brightside", slug: "mr-brightside", duration_in_seconds: 222 },
@@ -508,7 +549,8 @@ async function main() {
     {
       name: "Oasis",
       slug: "oasis",
-      status: "active",
+      status: Status.active,
+      description: "Gigantes do Britpop dos anos 90, conhecidos tanto por suas canções melódicas inesquecíveis quanto pelas brigas icônicas dos irmãos Gallagher.",
       tracks: {
         create: [
           { title: "Wonderwall", slug: "wonderwall", duration_in_seconds: 258 },
@@ -519,7 +561,8 @@ async function main() {
     {
       name: "Gorillaz",
       slug: "gorillaz",
-      status: "active",
+      status: Status.active,
+      description: "A maior banda virtual do mundo, criada por Damon Albarn, misturando Hip-Hop, Eletrônico, Dub e Pop de forma genial.",
       tracks: {
         create: [
           { title: "Feel Good Inc.", slug: "feel-good-inc", duration_in_seconds: 221 },
@@ -530,7 +573,8 @@ async function main() {
     {
       name: "Evanescence",
       slug: "evanescence",
-      status: "active",
+      status: Status.active,
+      description: "Banda norte-americana que estourou nos anos 2000 combinando Rock/Metal Alternativo com vocais líricos poderosos de Amy Lee.",
       tracks: {
         create: [
           { title: "Bring Me To Life", slug: "bring-me-to-life", duration_in_seconds: 235 },
@@ -541,7 +585,8 @@ async function main() {
     {
       name: "Blink-182",
       slug: "blink-182",
-      status: "active",
+      status: Status.active,
+      description: "Pioneiros do Pop Punk comercial nos anos 90 e 2000, influenciando toda uma geração com músicas rápidas, humor e angústia jovem.",
       tracks: {
         create: [
           { title: "All The Small Things", slug: "all-the-small-things", duration_in_seconds: 168 },
@@ -552,7 +597,8 @@ async function main() {
     {
       name: "Daft Punk",
       slug: "daft-punk",
-      status: "active",
+      status: Status.active,
+      description: "Duo francês icônico mascarado de robôs que revolucionou a música eletrônica, o French House e o Synthpop mundial.",
       tracks: {
         create: [
           { title: "Get Lucky", slug: "get-lucky", duration_in_seconds: 249 },
@@ -563,11 +609,10 @@ async function main() {
   ];
 
   console.log("Iniciando a inserção de 50 bandas...");
- 
+
   for (const band of bands) {
-   
     await prisma.band.create({
-      data: band as any 
+      data: band
     });
   }
 
