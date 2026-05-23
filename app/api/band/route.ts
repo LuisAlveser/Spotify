@@ -1,4 +1,4 @@
-import {BandSchema} from "../../schema/band.shama" 
+import {BandSchema,BandPathSchema} from "../../schema/band.shama" 
 import  {prisma} from "../../lib/prisma"
 import {mkdir,writeFile} from "node:fs/promises"
 import z, { file } from "zod"
@@ -10,6 +10,7 @@ const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 
 import { NextRequest } from "next/server"
+import { unlink } from "node:fs"
 
 
 
@@ -110,7 +111,8 @@ export async function POST(request: Request) {
       msg: "Banda cadastrada com sucesso!",
       insertedItem,
       filePath: `/uploads/${fileName}`
-    });
+      
+    },{status:201});
 
   } catch (error: unknown) {
     console.error("Erro na rota POST:", error);
@@ -122,13 +124,155 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Erro interno no servidor" }, { status: 500 });
   }
 }
-export async function DELETE() {
-    return Response.json({msg:"API rest GET"})
+
+
+
+export async function DELETE(request:NextRequest) {
+     try {
+      const data = await request.json()
+      if (!data.id) {
+      return NextResponse.json({ msg: "Id não informado" }, { status: 400 })
+    }
+    
+         await prisma.band.delete({where:{id:data.id}})
+         return NextResponse.json({ msg: "Banda excluida com sucesso " }, { status: 200 })
+     
+      
+     } catch (error) {
+        console.log(error)
+       return NextResponse.json({ msg: "Erro no servidor" }, { status: 500 })
+      
+     }
 }
-export async function PATH() {
-    return Response.json({msg:"API rest GET"})
+
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const uploadFolder = path.join(process.cwd(), "public", "uploads");
+    const formdata = await request.formData()
+    const data = {
+      id: formdata.get("id"),
+      name: formdata.get("name"),
+      slug: formdata.get("slug"),
+      description: formdata.get("description") || "",
+      status: formdata.get("status"),
+      cover: null 
+    };
+
+    const validador = BandPathSchema.parse(data);
+    const file = formdata.get("cover") as unknown as File;
+    const coverold = await prisma.band.findFirst({ where: { id: validador.id } })
+
+   
+    if (file && coverold?.cover_url) {
+      const filepathdel = path.join(uploadFolder, coverold.cover_url);
+      
+     
+      try {
+        await unlink(filepathdel,()=>{}); 
+      } catch (unlinkError: any) {
+        if (unlinkError.code === "ENOENT") {
+          console.warn(`Aviso: O arquivo ${coverold.cover_url} não foi encontrado no disco, prosseguindo...`);
+        } else {
+          throw unlinkError; 
+        }
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const uploadbuffer = path.join(process.cwd(), "public", "uploads");
+      await mkdir(uploadbuffer, { recursive: true });
+
+      const uniqueName = crypto.randomUUID();
+      const extension = path.extname(file.name);
+      const fileName = `${uniqueName}${extension}`;
+      const filepath = path.join(uploadbuffer, fileName);
+
+      await writeFile(filepath, buffer);
+
+      const update = await prisma.band.update({
+        where: { id: validador.id },
+        data: {
+          name: validador.name,
+          slug: validador.slug,
+          description: validador.description,
+          status: validador.status,
+          cover_url: fileName
+        }
+      })
+
+      return NextResponse.json({ msg: "Banda updated" }, { status: 200 })
+    }
+
+   
+    if (file === null && coverold?.cover_url) {
+      const update = await prisma.band.update({
+        where: { id: validador.id },
+        data: {
+          name: validador.name,
+          slug: validador.slug,
+          description: validador.description,
+          status: validador.status,
+          cover_url: coverold.cover_url
+        }
+      })
+
+      return NextResponse.json({ msg: "Banda atualizada" }, { status: 200 })
+    }
+
+    
+    if (file === null && !coverold?.cover_url) {
+      const update = await prisma.band.update({
+        where: { id: validador.id },
+        data: {
+          name: validador.name,
+          slug: validador.slug,
+          description: validador.description,
+          status: validador.status,
+          cover_url: null
+        }
+      })
+
+      return NextResponse.json({ msg: "Banda atualizada" }, { status: 200 })
+    }
+
+
+    if (file && !coverold?.cover_url) {
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const uploadbuffer = path.join(process.cwd(), "public", "uploads");
+      await mkdir(uploadbuffer, { recursive: true });
+
+      const uniqueName = crypto.randomUUID();
+      const extension = path.extname(file.name);
+      const fileName = `${uniqueName}${extension}`;
+      const filepath = path.join(uploadbuffer, fileName);
+
+      await writeFile(filepath, buffer);
+      
+      const update = await prisma.band.update({
+        where: { id: validador.id },
+        data: {
+          name: validador.name,
+          slug: validador.slug,
+          description: validador.description,
+          status: validador.status,
+          cover_url: fileName
+        }
+      })
+
+      return NextResponse.json({ msg: "Banda atualizada" }, { status: 200 })
+    }
+
+  } catch (error: unknown) {
+    console.log(error)
+    return NextResponse.json({ msg: "Erro no servidor" }, { status: 500 })
+  }
 }
+
 export async function HEAD() {
-    return Response.json({msg:"API rest GET"})
+    return NextResponse.json({msg:"API rest GET"})
 }
 

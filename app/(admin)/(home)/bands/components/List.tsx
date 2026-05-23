@@ -2,50 +2,28 @@
 import { Button } from "@/app/components/Button";
 import Loading from "@/app/components/Loading";
 import { Band } from "@/app/generated/prisma";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Pagination } from "./Pagination";
+import { BandList } from "../types/common";
+import { Remove} from "./Remove";
+import { Edit} from "./Edit";
 
 
-export function TableRow({ band }: { band: Band }) {
-  return (
-    <tr>
-      <td className="px-6 py-4 text-green-800 whitespace-nowrap">
-        {band.name}
-        </td>
-        
-      <td className="px-6 py-4 text-green-800 whitespace-nowrap">
-         <span className="inline-flex items-center px-2 py-0.5 rounded bg-green-100 text-green-900">
-          {band.description && band.description.length>30 
-          ?`${band.description.slice(0,30)}...`  
-          : band.description}
-        </span>
-      </td>
-     
-      <td className="px-6 py-4 text-green-800 whitespace-nowrap">
-        <span className="inline-flex items-center px-2 py-0.5 rounded bg-green-100 text-green-900">
-          {band.status}
-        </span>
-      </td>
-      <td className="text-center font-medium space-x-5 whitespace-nowrap">
-        <Button>Editar</Button>
-        <Button>Excluir</Button>
-      </td>
-    </tr>
-  );
+
+interface Props{
+  data:BandList | null,
+  loading:boolean,
+  currentPage:number,
+  setCurrentPage: Dispatch<SetStateAction<number>>,
+   onSuccess:()=>void
 }
-interface BandList{
-  pagination:{
-   currentPage:number,
-   totalItems:number,
-   totalPages:number
-  }
-  bands:Band[] //=> Model do prisma 
-}
-export   function List() {
- const [data,setData]=useState<BandList|null>(null)
- const [loading,setloading]=useState<boolean>(true)
- const [currentPage,setCurrentPage]=useState<number>(1)
- 
+export   function List({data,loading,currentPage,setCurrentPage,onSuccess}:Props) {
+    const [editIsOpen,setEditIsOpen]=useState<boolean>(false)
+    const [bandToEdit,setBandToEdit]=useState<Band|null>(null)
+
+    const [bandToRemove,setBandToRemove]=useState<Band|null>(null)
+     const [removeIsOpen,setRemoveIsOpen]=useState<boolean>(false)
+
  const handlePrev=()=> {
   if(currentPage>1){
     setCurrentPage((prev)=>prev-1)
@@ -62,29 +40,42 @@ export   function List() {
 
  }
 
+ const handleEditClick=(band:Band)=>{
+     setBandToEdit(band)
+     setEditIsOpen(true)
+ }
+  const handleRemoveClick=(band:Band)=>{
+     setBandToRemove(band)
+     setRemoveIsOpen(true)
+ }
+ function TableRow({ band }: { band: Band }) {
+  return (
+    <tr>
+      <td className="px-6 py-4 text-green-800 whitespace-nowrap">
+        {band.name}
+        </td>
+        
+      <td className="px-6 py-4 text-green-800 whitespace-nowrap">
+         <span className="inline-flex items-center px-2 py-0.5 rounded bg-green-100 text-green-900">
+          {band.description && band.description.length>30 
+          ?`${band.description.slice(0,30)}...`  
+          : band.description }
+        </span>
+      </td>
+     
+      <td className={`${band.status==="active"?"px-6 py-4 text-green-800 whitespace-nowrap":"px-6 py-4 text-red-800 whitespace-nowrap"}`}>
+        <span className={`inline-flex items-center px-2 py-0.5 rounded ${band.status==="active"?" bg-green-100 text-green-900": " bg-green-100 text-red-900"}`}>
+          {band.status}
+        </span>
+      </td>
+      <td className="text-center font-medium space-x-5 whitespace-nowrap">
+        <Button  onClick={()=>handleEditClick(band) }>Editar</Button>
+        <Button onClick={()=>handleRemoveClick(band)}>Excluir</Button>
+      </td>
+    </tr>
+  );
+}
 
- useEffect(()=>{
-   const fetchbands=async(page:number)=>{
-    try {
-     
-      setloading(true)
-       const response = await fetch(`http://localhost:3001/api/band?page=${page}&take=10`);
-     
-       const bandList: BandList = await response.json();
-       console.log(bandList.bands)
-       setData(bandList)
-       
-       setloading(false)
-      
-    } catch (error) {
-      console.error("Erro ao carregar dados do servidor:", error);
-    }
-      
-   }
-   fetchbands(currentPage)
- },[currentPage])//=>Escuta as alterações feitas nessa variável
- 
- 
   return (
    
      <>
@@ -116,6 +107,12 @@ export   function List() {
       {data?.pagination.totalPages&&(
             <Pagination
              totalPages={data.pagination.totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      )}
+      {editIsOpen&&
+      (<Edit setIsOpen={setEditIsOpen} onSuccess={()=>{onSuccess}}  setCurrentPage={setCurrentPage} bandToEdit={bandToEdit} />
+      )}
+      {removeIsOpen&&bandToRemove&&
+      (< Remove setRemoveIsOpen={setRemoveIsOpen} onSuccess={()=>{onSuccess}}  setCurrentPage={setCurrentPage} bandToRemove={bandToRemove} />
       )}
    
     </>
