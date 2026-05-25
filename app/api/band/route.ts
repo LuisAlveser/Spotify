@@ -1,7 +1,7 @@
 import {BandSchema,BandPathSchema} from "../../schema/band.shama" 
 import  {prisma} from "../../lib/prisma"
 import {mkdir,writeFile} from "node:fs/promises"
-import z, { file } from "zod"
+import z from "zod"
 import path from "node:path"
 import crypto from "node:crypto"
 import { NextResponse } from "next/server";

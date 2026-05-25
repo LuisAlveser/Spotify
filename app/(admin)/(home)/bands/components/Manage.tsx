@@ -1,14 +1,14 @@
 'use client'
 
 import { Button } from "@/app/components/Button";
-import { Create } from "@/app/(admin)/(home)/bands/components/Create";
+import { Createfeach } from "@/app/(admin)/(home)/bands/components/CreateFeatch";
 import { useEffect, useState } from "react";
 import { List } from "@/app/(admin)/(home)/bands/components/List";
 import { Edit } from "@/app/(admin)/(home)/bands/components/Edit";
 import { Band } from "@/app/generated/prisma";
 import { BandList } from "../types/common";
 import toast, { Toaster } from 'react-hot-toast';
-
+import {feachBandsActions}from "@/app/api/band/actions/feachBandsAction"
 
 export   function Manage() {
  const[isOpen,setIsOpen]=useState<boolean>(false)
@@ -21,9 +21,8 @@ export   function Manage() {
       try {
        
         setloading(true)
-         const response = await fetch(`http://localhost:3001/api/band?page=${page}&take=10`);
-       
-         const bandList: BandList = await response.json();
+           
+         const bandList: BandList = await feachBandsActions(page)
          console.log(bandList.bands)
          setData(bandList)
          
@@ -31,8 +30,11 @@ export   function Manage() {
         
       } catch (error) {
         console.error("Erro ao carregar dados do servidor:", error);
+      
+
+      }finally{
+          setloading(false)
       }
-        
      }
    useEffect(()=>{
    
@@ -49,7 +51,7 @@ export   function Manage() {
      
       </header>
        <List data={data} loading={loading} onSuccess={()=>fetchbands()} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-       {isOpen&&(<Create setIsOpen={setIsOpen} onSuccess={()=>fetchbands()}/>)
+       {isOpen&&(<Createfeach setIsOpen={setIsOpen} onSuccess={()=>fetchbands()} setCurrentPage={setCurrentPage}/>)
        }
       
         
